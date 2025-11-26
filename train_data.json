@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "description": "SNTF Train Schedule Data - Manual Entry Template",
+    "instructions": "Add your train data below. After editing, run: python3 backend/scripts/import_from_json.py",
+    "valid_from": "2025-11-18",
+    "last_updated": "2025-11-24"
+  },
+  
+  "stations": [
+    {
+      "name_fr": "Example Station Name",
+      "name_ar": "اسم المحطة مثال",
+      "line_code": "AT",
+      "note": "Delete this example and add real stations if needed"
+    }
+  ],
+  
+  "trains": [
+    {
+      "number": "EXAMPLE_1",
+      "line": "Alger-Thenia",
+      "route": "Alger - Thenia",
+      "days_operational": "[*]",
+      "note": "Days: [*]=daily, [1]=no Friday, [2]=Friday only",
+      "stops": [
+        {
+          "station_name": "Alger",
+          "time": "06:00"
+        },
+        {
+          "station_name": "Agha",
+          "time": "06:03"
+        },
+        {
+          "station_name": "Thenia",
+          "time": "07:00"
+        }
+      ]
+    },
+    {
+      "number": "41",
+      "line": "Alger-Thenia",
+      "route": "Alger - Thenia",
+      "days_operational": "[*]",
+      "note": "Add real train data here",
+      "stops": [
+        {
+          "station_name": "Alger",
+          "time": "11:20",
+          "note": "Times in HH:MM format"
+        },
+        {
+          "station_name": "Agha",
+          "time": "11:23"
+        },
+        {
+          "station_name": "Ateliers",
+          "time": "11:26"
+        },
+        {
+          "station_name": "Hussein Dey",
+          "time": "11:30"
+        },
+        {
+          "station_name": "Caroubier",
+          "time": "11:33"
+        },
+        {
+          "station_name": "El Harrach",
+          "time": "11:36"
+        },
+        {
+          "station_name": "Oued Smar",
+          "time": "11:41"
+        },
+        {
+          "station_name": "Bab Ezzouar",
+          "time": "11:44"
+        },
+        {
+          "station_name": "Dar El Beida",
+          "time": "11:47"
+        },
+        {
+          "station_name": "Rouiba",
+          "time": "11:52"
+        },
+        {
+          "station_name": "Reghaia",
+          "time": "11:57"
+        },
+        {
+          "station_name": "Boudouaou",
+          "time": "12:03"
+        },
+        {
+          "station_name": "Corso",
+          "time": "12:06"
+        },
+        {
+          "station_name": "Boumerdes",
+          "time": "12:10"
+        },
+        {
+          "station_name": "Tidjelabine",
+          "time": "12:14"
+        },
+        {
+          "station_name": "Thenia",
+          "time": "12:19"
+        }
+      ]
+    }
+  ],
+  
+  "available_routes": {
+    "note": "Use these exact route names when adding trains",
+    "routes": [
+      "Alger - Thenia",
+      "Thenia - Alger",
+      "Alger - El Affroun",
+      "El Affroun - Alger",
+      "Alger - Zéralda",
+      "Zéralda - Alger",
+      "Agha - Aeroport"
+    ]
+  },
+  
+  "available_stations": {
+    "note": "Use these exact station names in the 'stops' array",
+    "Alger-Thenia_line": [
+      "Alger", "Agha", "Ateliers", "Hussein Dey", "Caroubier", "El Harrach",
+      "Oued Smar", "Bab Ezzouar", "Dar El Beida", "Rouiba", "Rouiba Ind",
+      "Rouiba SNVI", "Reghaia", "Reghaia Ind", "Boudouaou", "Corso",
+      "Boumerdes", "Tidjelabine", "Thenia"
+    ],
+    "Alger-El_Affroun_line": [
+      "Alger", "Agha", "Ateliers", "Hussein Dey", "Caroubier", "El Harrach",
+      "Gué de Constantine", "Ain Naadja", "Baba Ali", "Birtouta", "Boufarik",
+      "Beni Mered", "Blida", "Chiffa", "Mouzaia", "El Affroun"
+    ],
+    "Alger-Zeralda_line": [
+      "Alger", "Agha", "Ateliers", "Hussein Dey", "Caroubier", "El Harrach",
+      "Gué de Constantine", "Ain Naadja", "Baba Ali", "Birtouta",
+      "Tessala El Merdja", "Sidi Abdelah", "Zéralda"
+    ],
+    "Airport_line": [
+      "Agha", "El Harrach", "Bab Ezzouar", "Aeroport Houari Boumediene"
+    ]
+  }
+}

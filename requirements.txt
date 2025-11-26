@@ -1,0 +1,7 @@
+django>=4.2
+djangorestframework
+openpyxl
+pandas
+whitenoise
+gunicorn
+psycopg2-binary
