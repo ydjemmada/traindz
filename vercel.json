@@ -1,11 +1,11 @@
 {
     "builds": [
         {
-            "src": "backend/sntf_project/wsgi.py",
+            "src": "vercel_app.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb",
-                "runtime": "python3.9"
+                "runtime": "python3.12"
             }
         }
     ],
@@ -16,7 +16,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "backend/sntf_project/wsgi.py"
+            "dest": "vercel_app.py"
         }
     ]
 }

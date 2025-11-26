@@ -107,8 +107,6 @@ def update_database(file_path):
     skipped_count = 0
     
     # Clear existing trains to avoid duplicates/stale data
-    # In a real production system, we might want to be smarter (update instead of delete)
-    # But for this "Weekly Update Protocol", a clean slate for schedules is safer to ensure consistency
     print("🧹 Clearing existing schedule data...")
     Train.objects.all().delete()
     
@@ -116,17 +114,47 @@ def update_database(file_path):
         print(f"\n📄 Processing sheet: {sheet_name}")
         ws = wb[sheet_name]
         
-        # Determine route
-        route = None
+        # Determine route name
+        route_name = None
         for sn, rn in sheet_to_route.items():
             if sn.lower().replace('-', '').replace(' ', '') == sheet_name.lower().replace('-', '').replace(' ', ''):
-                route = route_map.get(rn)
+                route_name = rn
                 break
         
-        if not route:
+        if not route_name:
             print(f"   ⚠️  Could not map sheet '{sheet_name}' to a route")
             continue
-        
+            
+        # Ensure Route Exists
+        if route_name not in route_map:
+            print(f"   🛠️  Creating missing route: {route_name}")
+            try:
+                origin_name, dest_name = route_name.split(' - ')
+                
+                # Ensure Origin/Dest Stations exist
+                for s_name in [origin_name, dest_name]:
+                    if s_name not in station_objs:
+                        print(f"      Creating station: {s_name}")
+                        s = Station.objects.create(name_fr=s_name, name_ar=s_name)
+                        station_objs[s_name] = s
+                
+                # Ensure Line exists
+                line_name = route_name # Simplified: Route name = Line name
+                line, _ = Line.objects.get_or_create(name=line_name)
+                
+                # Create Route
+                route = Route.objects.create(
+                    name=route_name,
+                    line=line,
+                    origin=station_objs[origin_name],
+                    destination=station_objs[dest_name]
+                )
+                route_map[route_name] = route
+            except Exception as e:
+                print(f"   ❌ Error creating route {route_name}: {e}")
+                continue
+
+        route = route_map[route_name]
         print(f"   📍 Using route: {route.name}")
         
         rows = list(ws.iter_rows(values_only=True))
@@ -186,9 +214,10 @@ def update_database(file_path):
                 if not time_str or time_str == '-': continue
                 
                 if station_name not in station_objs:
-                    if station_name not in skipped_stations:
-                        skipped_stations.append(station_name)
-                    continue
+                    # Create station on the fly
+                    # print(f"      Creating new station: {station_name}")
+                    s = Station.objects.create(name_fr=station_name, name_ar=station_name)
+                    station_objs[station_name] = s
                 
                 # Split Logic
                 is_new_trip = False
